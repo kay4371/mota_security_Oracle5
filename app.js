@@ -8817,89 +8817,89 @@ setInterval(() => {
   });
 }, 7 * 24 * 60 * 60 * 1000);
 
-app.post('/OtherIddata', async function (req, res) {
-  const driverData = req.body;
+// app.post('/OtherIddata', async function (req, res) {
+//   const driverData = req.body;
 
-  try {
-    const client = new MongoClient(uri);
-    await client.connect();
+//   try {
+//     const client = new MongoClient(uri);
+//     await client.connect();
 
-    const database = client.db('olukayode_sage');
-    const driversHistoryCollection = database.collection('OtherIDs');
+//     const database = client.db('olukayode_sage');
+//     const driversHistoryCollection = database.collection('OtherIDs');
 
-    // Insert the driver data into the drivers history collection
-    const result = await driversHistoryCollection.insertOne(driverData);
-    console.log('Driver added to otherID:', result);
+//     // Insert the driver data into the drivers history collection
+//     const result = await driversHistoryCollection.insertOne(driverData);
+//     console.log('Driver added to otherID:', result);
 
-    res.status(200).json({ message: 'Driver added to OtherId' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred while adding the driver to history');
-  } finally {
-    await client.close();
-  }
-});
+//     res.status(200).json({ message: 'Driver added to OtherId' });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('An error occurred while adding the driver to history');
+//   } finally {
+//     await client.close();
+//   }
+// });
 
-app.post('/extractOtherDetails', async (req, res) => {
-  try {
-    const client = new MongoClient(uri);
-    await client.connect();
+// app.post('/extractOtherDetails', async (req, res) => {
+//   try {
+//     const client = new MongoClient(uri);
+//     await client.connect();
 
-    const database = client.db('olukayode_sage');
-    const driversHistoryCollection = database.collection('OtherIDs');
+//     const database = client.db('olukayode_sage');
+//     const driversHistoryCollection = database.collection('OtherIDs');
 
-    // Fetch the required data from the database
-    const token1Data = await driversHistoryCollection.findOne({ idType: 'Token 1' });
-    const groupIDData = await driversHistoryCollection.findOne({ idType: 'GroupID' });
+//     // Fetch the required data from the database
+//     const token1Data = await driversHistoryCollection.findOne({ idType: 'Token 1' });
+//     const groupIDData = await driversHistoryCollection.findOne({ idType: 'GroupID' });
 
-    // Log the retrieved data
-    console.log('Extracted Details:');
-    console.log('Token1:', token1Data.idNumber);
-    console.log('GroupID:', groupIDData.idNumber);
+//     // Log the retrieved data
+//     console.log('Extracted Details:');
+//     console.log('Token1:', token1Data.idNumber);
+//     console.log('GroupID:', groupIDData.idNumber);
 
-    // Send response with the extracted data
-    res.status(200).json({
-      message: 'Details extracted successfully',
-      token1: token1Data.idNumber,
-      groupID: groupIDData.idNumber
-    });
-  } catch (error) {
-    console.error('An error occurred:', error);
-    res.status(500).json({ error: 'An error occurred while extracting details' });
-  } finally {
-    await client.close();
-  }
-});
+//     // Send response with the extracted data
+//     res.status(200).json({
+//       message: 'Details extracted successfully',
+//       token1: token1Data.idNumber,
+//       groupID: groupIDData.idNumber
+//     });
+//   } catch (error) {
+//     console.error('An error occurred:', error);
+//     res.status(500).json({ error: 'An error occurred while extracting details' });
+//   } finally {
+//     await client.close();
+//   }
+// });
 
 
-app.post('/send_expatriate_parameters', async (req, res) => {
-  const { expatriate_name, expatriate_nationality, expatriate_phone_number, expatriate_residence_nigeria, expatriate_department } = req.body;
+// app.post('/send_expatriate_parameters', async (req, res) => {
+//   const { expatriate_name, expatriate_nationality, expatriate_phone_number, expatriate_residence_nigeria, expatriate_department } = req.body;
 
-  try {
-      await client.connect();
+//   try {
+//       await client.connect();
 
-      const database = client.db('olukayode_sage');
-      const expatriates = database.collection('expatriates_collection');
+//       const database = client.db('olukayode_sage');
+//       const expatriates = database.collection('expatriates_collection');
 
-      // Insert the expatriate data into the expatriates collection
-      const result = await expatriates.insertOne({
-          name: expatriate_name,
-          countryOfOrigin: expatriate_nationality,
-          phoneNumber: expatriate_phone_number,
-          houseAddress: expatriate_residence_nigeria,
-          unit: expatriate_department
-      });
-      console.log('Expatriate added to collection:', result);
+//       // Insert the expatriate data into the expatriates collection
+//       const result = await expatriates.insertOne({
+//           name: expatriate_name,
+//           countryOfOrigin: expatriate_nationality,
+//           phoneNumber: expatriate_phone_number,
+//           houseAddress: expatriate_residence_nigeria,
+//           unit: expatriate_department
+//       });
+//       console.log('Expatriate added to collection:', result);
 
-      // Respond with success message
-      res.status(200).json({ message: 'Expatriate added to collection' });
-  } catch (error) {
-      console.error('An error occurred:', error);
-      res.status(500).send('An error occurred while adding the expatriate to the collection');
-  } finally {
-      await client.close();
-  }
-});
+//       // Respond with success message
+//       res.status(200).json({ message: 'Expatriate added to collection' });
+//   } catch (error) {
+//       console.error('An error occurred:', error);
+//       res.status(500).send('An error occurred while adding the expatriate to the collection');
+//   } finally {
+//       await client.close();
+//   }
+// });
 
 // // // serverWebSocket.on('connection', (ws) => {
 // // //   console.log('WebSocket connection established');
